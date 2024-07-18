@@ -37,6 +37,11 @@ public class Coupon {
   @JoinColumn(name = "event_id")
   private Event event;
 
+  public void setValid(java.util.Date date) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setValid'");
+  }
+
 
 
 }

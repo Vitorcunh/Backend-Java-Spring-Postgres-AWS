@@ -17,6 +17,7 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.eventostec.api.domain.event.Event;
 import com.eventostec.api.domain.event.EventRequestDTO;
+import com.eventostec.repositores.EventRepository;
 
 @Service
 public class EventService {
@@ -26,6 +27,10 @@ public class EventService {
 
     @Autowired
     private AmazonS3 s3Client;
+
+    @Autowired
+    private EventRepository repository;
+
 
     public Event createEvent(EventRequestDTO data) {
         String imgUrl = null;
@@ -40,6 +45,8 @@ public class EventService {
         newEvent.setEventUrl(data.eventURL());
         newEvent.setDate(new Date(data.date()));
         newEvent.setImgUrl(imgUrl);
+        newEvent.setRemote(data.remote());
+        repository.save(newEvent);
 
         return newEvent;
     }
@@ -54,7 +61,7 @@ public class EventService {
             return s3Client.getUrl(bucketName, filename).toString();
         } catch (SdkClientException | IOException e) {
             System.out.println("Erro ao subir arquivo");
-            return null;
+            return "";
         }
     }
 
@@ -64,5 +71,9 @@ public class EventService {
             fos.write(multipartFile.getBytes());
         }
         return convFile;
+    }
+
+    public EventRepository getRepository() {
+        return repository;
     }
 }
