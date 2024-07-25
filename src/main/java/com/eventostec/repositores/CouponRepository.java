@@ -1,11 +1,13 @@
 package com.eventostec.repositores;
 
-import java.util.UUID;
 
+import com.eventostec.api.domain.coupon.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eventostec.api.domain.coupom.Coupon;;;;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
-public interface CouponRepository extends JpaRepository <Coupon, UUID>{
-  
+public interface CouponRepository extends JpaRepository <Coupon, UUID> {
+    List<Coupon> findByEventIdAndValidAfter(UUID eventId, Date currentDate);
 }

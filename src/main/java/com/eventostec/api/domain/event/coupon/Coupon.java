@@ -1,4 +1,4 @@
-package com.eventostec.api.domain.coupom;
+package com.eventostec.api.domain.event.coupon;
 
 import java.sql.Date;
 import java.util.UUID;
